@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Kayla</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Menggunakan Caveat untuk font script (pengganti little summer), Montserrat untuk sans-serif, Playfair untuk serif -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@500;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        :root {
+            --navy: #0a192f; 
+            --light-blue: #64ffda; 
+            --text-white: #ccd6f6;
+        }
+
+        body {
+            background-color: var(--navy);
+            color: var(--text-white);
+            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            /* Custom kursor bintang kuning untuk seluruh halaman */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="yellow" stroke="goldenrod" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>') 12 12, auto;
+        }
+
+        /* Mengatur kursor bintang yang lebih terang untuk elemen yang bisa diklik */
+        a, button, .dot {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="gold" stroke="darkgoldenrod" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>') 12 12, pointer !important;
+        }
+
+        /* Font Classes */
+        .font-script {
+            font-family: 'Caveat', cursive;
+        }
+        .font-sans {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Text Effects */
+        .text-shadow-custom {
+            text-shadow: 2px 2px 4px rgba(100, 255, 218, 0.3);
+        }
+        .text-shadow-blue {
+            text-shadow: 0 0 15px rgba(100, 255, 218, 0.8);
+        }
+        .box-shadow-blue {
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, var(--light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll Container Setup */
+        .scroll-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            position: relative;
+            z-index: 10;
+        }
+        
+        section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 2rem;
+            box-sizing: border-box;
+            background: transparent; /* Transparan agar bintang tetap terlihat */
+        }
+
+        /* Fixed Stars Background (Di belakang semua section) */
+        #fixed-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; /* Di bawah konten utama */
+            pointer-events: none; /* Tidak menghalangi klik */
+        }
+        
+        .faint-star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: twinkle 4s infinite alternate;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.1; transform: scale(0.8); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+            100% { opacity: 0.2; transform: scale(0.9); }
+        }
+
+        /* Bulan Sabit */
+        .crescent-moon {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            /* Bayangan dipindah untuk membentuk sabit di kiri */
+            box-shadow: inset -30px -30px 0 0 var(--light-blue);
+            position: absolute;
+            top: 15%;
+            left: 10%; 
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Awan CSS */
+        .cloud {
+            background: #ffffff;
+            border-radius: 50px;
+            position: absolute;
+            opacity: 0.7;
+            filter: blur(0.5px);
+            z-index: 5;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            background: #ffffff;
+            position: absolute;
+            border-radius: 50%;
+        }
+        
+        .cloud-1 { top: 15%; left: -2%; width: 150px; height: 50px; animation: floatCloud 10s infinite alternate ease-in-out; }
+        .cloud-1::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .cloud-1::after { width: 90px; height: 90px; top: -45px; left: 60px; }
+
+        .cloud-2 { top: 60%; left: 3%; width: 100px; height: 35px; animation: floatCloud 12s infinite alternate-reverse ease-in-out; opacity: 0.5;}
+        .cloud-2::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud-2::after { width: 60px; height: 60px; top: -30px; left: 40px; }
+
+        .cloud-3 { top: 25%; right: 2%; width: 130px; height: 45px; animation: floatCloud 9s infinite alternate ease-in-out; }
+        .cloud-3::before { width: 65px; height: 65px; top: -30px; left: 20px; }
+        .cloud-3::after { width: 80px; height: 80px; top: -40px; left: 50px; }
+
+        .cloud-4 { top: 65%; right: -2%; width: 180px; height: 60px; animation: floatCloud 15s infinite alternate-reverse ease-in-out; opacity: 0.6; }
+        .cloud-4::before { width: 80px; height: 80px; top: -40px; left: 30px; }
+        .cloud-4::after { width: 100px; height: 100px; top: -50px; left: 70px; }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(0px) translateY(0px); }
+            100% { transform: translateX(15px) translateY(-5px); }
+        }
+
+        /* Pointer Bintang untuk Navigasi Antar Slide */
+        .star-pointer-btn {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        /* Nav Dots (Desktop Only) */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 50;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(204, 214, 246, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background-color: var(--light-blue);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--light-blue);
+        }
+
+        @media (max-width: 768px) {
+            .crescent-moon {
+                width: 100px; height: 100px;
+                box-shadow: inset -20px -20px 0 0 var(--light-blue);
+            }
+            .nav-dots { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Bintang Tetap -->
+    <div id="fixed-stars"></div>
+
+    <div class="nav-dots">
+        <a href="#home" class="dot active" title="Home"></a>
+        <a href="#profile" class="dot" title="Profile"></a>
+        <a href="#about" class="dot" title="About Me"></a>
+        <a href="#certificate" class="dot" title="Certificates"></a>
+    </div>
+
+    <!-- Container Utama -->
+    <div class="scroll-container" id="main-scroll">
+        
+        <!-- Slide 1: Tampilan Utama -->
+        <section id="home">
+            <!-- Awan Putih Kiri & Kanan -->
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+
+            <!-- Bulan Sabit di Kiri -->
+            <div class="crescent-moon z-10"></div>
+            
+            <div class="z-20 text-center relative">
+                <h1 class="font-script text-6xl md:text-8xl text-white text-shadow-custom tracking-wider">
+                    PORTOFOLIO
+                </h1>
+            </div>
+            
+            <!-- Sosial Media Ikon di Bagian Bawah -->
+            <div class="absolute bottom-28 md:bottom-28 flex gap-8 z-30">
+                <a href="https://www.instagram.com/kkayra_kyy?stkn=bHlmczFvNW9lMG9r" target="_blank" class="text-white hover:text-[#64ffda] text-4xl hover:scale-110 transition-all duration-300 shadow-lg drop-shadow-md">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/qr/4DZDLFIVJJY3L1" target="_blank" class="text-white hover:text-[#64ffda] text-4xl hover:scale-110 transition-all duration-300 shadow-lg drop-shadow-md">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <!-- Pointer Bintang untuk pindah ke Profile -->
+            <a href="#profile" class="absolute bottom-10 text-yellow-400 text-3xl z-30 star-pointer-btn hover:text-yellow-200 transition-colors filter drop-shadow-[0_0_12px_rgba(250,204,21,0.9)]" title="Geser ke Profil">
+                <i class="fas fa-star"></i>
+            </a>
+        </section>
+
+        <!-- Slide 2: Tampilan Kedua (Profil) -->
+        <section id="profile" class="flex-col md:flex-row items-center justify-center gap-10 md:gap-20 relative">
+            
+            <!-- Teks di Kiri -->
+            <div class="order-2 md:order-1 text-center md:text-left max-w-md z-20">
+                <h2 class="font-sans text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">
+                    Kayla Putri Isnaini Hidayat
+                </h2>
+                <!-- Teks "Small step lead to big chages" (font script/little summer, gradien putih-biru muda) -->
+                <p class="font-script text-4xl md:text-5xl text-gradient leading-relaxed">
+                    Small step lead to big chages
+                </p>
+            </div>
+
+            <!-- Foto di Kanan -->
+            <div class="order-1 md:order-2 z-20">
+                <div class="relative w-56 h-56 md:w-72 md:h-72 rounded-full p-2 bg-gradient-to-tr from-[#0a192f] to-[#64ffda] box-shadow-blue">
+                    <!-- Placeholder Foto Bulat -->
+                    <img src="foto.jpeg" alt="Foto Kayla" class="w-full h-full object-cover rounded-full border-4 border-[#0a192f]">
+                </div>
+            </div>
+
+            <!-- Pointer Bintang untuk pindah ke About -->
+            <a href="#about" class="absolute bottom-10 text-yellow-400 text-3xl z-30 star-pointer-btn hover:text-yellow-200 transition-colors filter drop-shadow-[0_0_12px_rgba(250,204,21,0.9)]" title="Geser ke Tentang Saya">
+                <i class="fas fa-star"></i>
+            </a>
+        </section>
+
+        <!-- Slide 3: Tampilan Ketiga (About Me) -->
+        <section id="about" class="flex-col justify-start pt-16 md:pt-24 relative">
+            
+            <!-- Judul ABOUT ME di Tengah Atas -->
+            <h2 class="font-script text-5xl md:text-6xl text-white mb-12 text-shadow-blue z-20">
+                ABOUT ME
+            </h2>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full max-w-4xl z-20 px-6">
+                <!-- Foto di Sebelah Kiri Teks -->
+                <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border-2 border-[#64ffda] shadow-[0_0_15px_rgba(100,255,218,0.3)] shrink-0 hover:scale-105 transition-transform duration-300">
+                    <img src="foto2.jpeg" alt="Foto Profil 2" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- Teks di Sebelah Kanan Foto -->
+                <div class="text-center md:text-left flex flex-col justify-center">
+                    <!-- Teks Saya Kayla (Font Serif, Putih) -->
+                    <h3 class="font-serif text-3xl md:text-4xl text-white mb-3 italic drop-shadow-md">
+                        Saya Kayla Putri Isnaini Hidayat
+                    </h3>
+                    
+                    <!-- Teks Sekolah (Font Script, Putih) -->
+                    <p class="font-script text-3xl md:text-4xl text-white leading-relaxed drop-shadow-md">
+                        siswa SMKN 1 Cianjur <br class="hidden md:block"> kelas 10 PPLG 1
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pointer Bintang untuk pindah ke Sertifikat -->
+            <a href="#certificate" class="absolute bottom-10 text-yellow-400 text-3xl z-30 star-pointer-btn hover:text-yellow-200 transition-colors filter drop-shadow-[0_0_12px_rgba(250,204,21,0.9)]" title="Geser ke Sertifikat">
+                <i class="fas fa-star"></i>
+            </a>
+        </section>
+
+        <!-- Slide 4: Tampilan Keempat (Sertifikat) -->
+        <section id="certificate" class="flex-col justify-center relative">
+            
+            <!-- Teks Sertifikat & Penghargaan -->
+            <h2 class="font-script text-5xl md:text-6xl text-gradient mb-10 text-center z-20 drop-shadow-lg">
+                Sertifikat & Penghargaan
+            </h2>
+            
+            <!-- 1 Foto di Tengah -->
+            <div class="relative w-11/12 max-w-3xl aspect-[4/3] md:aspect-video rounded-xl overflow-hidden border border-[#64ffda] shadow-[0_10px_30px_-10px_rgba(100,255,218,0.4)] group z-20">
+                <img src="piagam penghargaan.jpeg" alt="Sertifikat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                
+                <!-- Overlay efek saat dihover -->
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0a192f] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
+                    <p class="font-sans text-[#64ffda] text-lg font-bold">Penghargaan Terbaik</p>
+                </div>
+            </div>
+            
+            <!-- Pointer Bintang untuk kembali ke Atas -->
+            <a href="#home" class="absolute bottom-10 text-yellow-400 text-3xl z-30 star-pointer-btn hover:text-yellow-200 transition-colors filter drop-shadow-[0_0_12px_rgba(250,204,21,0.9)]" title="Kembali ke Atas">
+                <i class="fas fa-star"></i>
+            </a>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Logika untuk Generate Bintang Kecil di Latar Belakang ---
+            const starsContainer = document.getElementById('fixed-stars');
+            const totalStars = 60; // Total bintang yang akan disebar (30 di kiri, 30 di kanan)
+
+            for (let i = 0; i < totalStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('faint-star');
+                
+                // Menentukan apakah bintang berada di sisi kiri (0-30vw) atau kanan (70-100vw)
+                const isLeftSide = Math.random() < 0.5;
+                const randomX = isLeftSide 
+                    ? Math.random() * 30 // Sisi Kiri
+                    : 70 + (Math.random() * 30); // Sisi Kanan
+
+                const randomY = Math.random() * 100; // Posisi vertical acak
+                
+                // Ukuran bintang acak antara 1px hingga 3px
+                const size = Math.random() * 2.5 + 1;
+
+                // Pengaturan Styling Bintang
+                star.style.left = `${randomX}vw`;
+                star.style.top = `${randomY}vh`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Delay animasi berkelap-kelip agar natural
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                // Durasi kelap-kelip acak
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                starsContainer.appendChild(star);
+            }
+
+            // --- Logika Navigasi & Scroll ---
+            const container = document.getElementById('main-scroll');
+            const sections = document.querySelectorAll('section');
+            const dots = document.querySelectorAll('.dot');
+            const pointers = document.querySelectorAll('.star-pointer-btn');
+
+            // Deteksi scroll untuk mengaktifkan titik navigasi yang tepat
+            container.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (container.scrollTop >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                dots.forEach(dot => {
+                    dot.classList.remove('active');
+                    if (dot.getAttribute('href').includes(current)) {
+                        dot.classList.add('active');
+                    }
+                });
+            });
+
+            // Fungsi utilitas untuk Smooth scroll pada elemen tertentu (Dots atau Bintang Navigasi)
+            const handleSmoothScroll = (elements) => {
+                elements.forEach(el => {
+                    el.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        if(targetSection) {
+                            targetSection.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            };
+
+            // Terapkan ke dots samping dan bintang di bawah
+            handleSmoothScroll(dots);
+            handleSmoothScroll(pointers);
+        });
+    </script>
+</body>
+</html>
